@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<h5 style="margin-top: 5px;">Your Notes</h5>
+<ul class="list-group list-group-flush" id="notes">
+    <div class="container my-3">
+
+        {% if user.notes|length == 0 %}
+        <div class="alert alert-primary d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:">
+        <use xlink:href="/" />
+      </svg>
+            <div>
+                <strong>Empty !</strong> Notes are not exist please add !
+            </div>
+        </div>
+
+        {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Date/Time</th>
+                    <th scope="col">Modify</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for note in user.notes %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{note.title}}</td>
+                    <td>{{note.note}}</td>
+                    <td>{{note.date}}</td>
+                    <td style="align-items: center;">
+                        <a href="/update/{{note.id}}" type="button" class="btn-white ">
+                            <img src="static/images/exchange.png" style="height: 25px; width: 25px; margin: 8px;"></img>
+                            </button>
+                            <a href="/delete/{{note.id}}" type="button" class="btn-white">
+                                <img src="static/images/trash.png" style="height: 25px; width: 25px; margin-left: 12px;"></img>
+                                </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</ul>
+<div id="footer" style="margin-top: 32%;">
+    {% block footer %}
+    <p class="text-center">&copy; Copyright 2022 By PES MCOE DEPARTMENT OF AIDS</p>
+
+    {% endblock %}
+
+</div>
+{% endblock %}
